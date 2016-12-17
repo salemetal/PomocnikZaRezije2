@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/spinnerYearYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Spinner>
+        <Button
+            android:id="@+id/btnGetYearly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ucitaj"/>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/listViewGodisnje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </ListView>
+        <LinearLayout
+            android:id="@+id/llYearlyTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/padding_top_total"
+            android:paddingBottom="@dimen/padding_bottom_total">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_height="wrap_content"
+                android:background="@color/mainGray"
+                android:text="@string/ukupno"
+                android:paddingLeft="@dimen/padding_left_rows"
+                android:textSize="@dimen/text_size_cat_year"/>
+            <TextView
+                android:id="@+id/tvYearlyTotal"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:background="@color/mainGray"
+                android:gravity="right"
+                android:paddingRight="@dimen/padding_right_rows"
+                android:textSize="@dimen/text_size_amount_year"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

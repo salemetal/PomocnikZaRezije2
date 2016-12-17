@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">PomocnikZaRezije</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_message">Dodajte kategorije pritiskom na + tipku.</string>
+
+    <string name="title_activity_new_category">Dodaj novu kategoriju</string>
+
+    <string name="upozorenje">Upozorenje</string>
+    <string name="niste_unijeli_kategoriju">Niste unijeli kategoriju</string>
+    <string name="naziv_kategorije">Naziv kategorije</string>
+    <string name="zatvori">Zatvori</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="uslikaj_kod">Skeniraj kod</string>
+    <string name="instalirajte_zxing">Instalirajte zxing čitač kodova </string>
+    <string name="scan_nije_uspio">Scan nije uspio!</string>
+    <string name="iznos">Iznos</string>
+    <string name="obavezni_podaci">Obavezni podaci</string>
+    <string name="dodatni_podaci">Dodatni podaci</string>
+    <string name="platitelj">Platitelj</string>
+    <string name="adresa_platitelja">Adresa platitelja</string>
+    <string name="primatelj">Primatelj</string>
+    <string name="adresa_primatelja">Adresa primatelja</string>
+    <string name="iban_primatelja">IBAN primatelja</string>
+    <string name="model">Model</string>
+    <string name="pnbp">Poziv na broj primatelja</string>
+    <string name="sifra_namjene">Šifra namjene</string>
+    <string name="opis_placanja">Opis placanja</string>
+    <string name="datum_placanja">Datum plaćanja</string>
+    <string name="hrk">HRK</string>
+    <string name="greska_baza">Greška prilikom unosa u bazu!</string>
+    <string name="spremljeno">Spremljeno!</string>
+    <string name="zadnje_placeno">Zadnje plaćeno</string>
+    <string name="uredi">Ažuriraj</string>
+    <string name="obrisi">Obriši</string>
+    <string name="da">DA</string>
+    <string name="obrisano">Obrisano!</string>
+    <string name="ne">NE</string>
+    <string name="pr_ime_kat">Promijeni ime kategorije</string>
+    <string name="spremi">Spremi</string>
+    <string name="odustani">Odustani</string>
+    <string name="naz_kat_prazan">Naziv kategorije je prazan!</string>
+    <string name="ok">OK</string>
+    <string name="azurirano">Ažurirano!</string>
+    <string name="kategorije">Kategorije</string>
+    <string name="Mjesečno">Mjesečno</string>
+    <string name="Godišnje">Godišnje</string>
+    <string name="msgNemaRezultataZaMjesec">Nema rezultata za odabrani mjesec!</string>
+    <string name="ucitaj">Učitaj</string>
+    <string name="msgNemaRezultataZaGodinu">Nema rezultata za odabranu godinu!</string>
+    <string name="ukupno">"Ukupno"</string>
+    <string name="placeno">"Plaćeno "</string>
+</resources>

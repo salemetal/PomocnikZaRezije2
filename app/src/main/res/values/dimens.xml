@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    --rows
+    <dimen name="padding_left_rows">10dp</dimen>
+    <dimen name="padding_right_rows">10dp</dimen>
+    <dimen name="padding_flag">5dp</dimen>
+    <dimen name="padding_top_total">1dp</dimen>
+    <dimen name="padding_bottom_total">1dp</dimen>
+
+
+    --text sizes
+    <dimen name="text_size_cat_cat">15dp</dimen>
+    <dimen name="text_size_amount_mon">15dp</dimen>
+    <dimen name="text_size_cat_mon">15dp</dimen>
+    <dimen name="text_size_placeno_mon">11dp</dimen>
+    <dimen name="text_size_cat_year">17dp</dimen>
+    <dimen name="text_size_months_yearly">8dp</dimen>
+    <dimen name="padding_bottom_months_yearly">2dp</dimen>
+    <dimen name="text_size_amount_year">17dp</dimen>
+</resources>
