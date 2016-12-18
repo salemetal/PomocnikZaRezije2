@@ -49,4 +49,13 @@
     <string name="msgNemaRezultataZaGodinu">Nema rezultata za odabranu godinu!</string>
     <string name="ukupno">"Ukupno"</string>
     <string name="placeno">"Plaćeno "</string>
+    <string name="create_folder_error">Greška pri kreiranju folderea na Google Drive</string>
+    <string name="create_folder_success">"Kreiran backup folder na Google Drive"</string>
+    <string name="conn_failed">Connected failed</string>
+    <string name="folder_created" />
+    <string name="folder_exists">Folder postoji!</string>
+    <string name="cant_create_folder">Ne mogu kreirati bckp folder na Google Drive!</string>
+    <string name="creting_folder">Kreiram backup folder na Google Dirve</string>
+    <string name="error_creating_folder">Greška kod kreiranja backup foldera!</string>
+    <string name="bckp_folder_created">krairan backup folder na Google Drive!</string>
 </resources>
