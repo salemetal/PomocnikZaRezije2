@@ -201,6 +201,10 @@ public class DBHandler extends SQLiteOpenHelper {
             db.insert(TABLE_REZIJE, null, values);
         }
         db.close();
+
+        //backup - TODO asinkrono???
+        //Backup backup = new Backup();
+        //backup.backupDB();
     }
 
     public Rezije getRezijeById(int id)
