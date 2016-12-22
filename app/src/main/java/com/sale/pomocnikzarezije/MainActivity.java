@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Backup backup = new Backup();
-        backup.backupDB(googleApiClient);
+        backup.backupDB(googleApiClient, getApplicationContext());
     }
 
     @Override

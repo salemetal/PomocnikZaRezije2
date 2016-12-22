@@ -1,5 +1,8 @@
 package com.sale.pomocnikzarezije;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
@@ -9,7 +12,11 @@ import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.DriveFolder;
 import com.google.android.gms.drive.DriveId;
 import com.google.android.gms.drive.DriveResource;
+import com.google.android.gms.drive.Metadata;
 import com.google.android.gms.drive.MetadataChangeSet;
+import com.google.android.gms.drive.query.Filters;
+import com.google.android.gms.drive.query.Query;
+import com.google.android.gms.drive.query.SearchableField;
 import com.sale.pomocnikzarezije.db.DBHandler;
 
 import java.io.File;
@@ -21,15 +28,45 @@ import java.io.OutputStream;
  * Created by Sale on 19.12.2016..
  */
 
-public class Backup {
+public class Backup{
 
     //TODO maknuti poziv iz main activitija u db akcije
 
     static final String BCKP_DB_FILE_NAME = "PomocnikZaRezije.db";
     static final String DB_MIME = "application/x-sqlite3";
 
-    public void backupDB(final GoogleApiClient googleApiClient) {
+    public void backupDB(final GoogleApiClient googleApiClient, final Context context) {
 
+        //query for chesk if bckp file exist
+        Query query = new Query.Builder()
+                .addFilter(Filters.and(Filters.eq(
+                        SearchableField.TITLE, BCKP_DB_FILE_NAME),
+                        Filters.eq(SearchableField.TRASHED, false)))
+                .build();
+        Drive.DriveApi.query(googleApiClient, query)
+                .setResultCallback(new ResultCallback<DriveApi.MetadataBufferResult>() {
+                    @Override
+                    public void onResult(DriveApi.MetadataBufferResult result) {
+                        if(!result.getStatus().isSuccess()) {
+                            Toast.makeText(context, "Error!!!", Toast.LENGTH_LONG).show();
+                        } else
+                        {
+                            for(Metadata m : result.getMetadataBuffer()) {
+                                if(m.getTitle().equals(BCKP_DB_FILE_NAME)){
+                                    Toast.makeText(context, "Bckp File found: " + m.getTitle(), Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                            }
+                            //if not found, create bckp file
+                            Toast.makeText(context, "Bckp File not found, creatig one! ", Toast.LENGTH_LONG).show();
+                            createBckpFileGD(googleApiClient);
+                        }
+                    }
+                });
+    }
+
+    private void createBckpFileGD(final GoogleApiClient googleApiClient)
+    {
         final DriveFolder pFldr = Drive.DriveApi.getRootFolder(googleApiClient);
         final File file = new java.io.File("/data/data/com.sale.pomocnikzarezije/databases/" + DBHandler.DATABASE_NAME);
 
