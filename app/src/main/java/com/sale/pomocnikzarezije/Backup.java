@@ -1,6 +1,7 @@
 package com.sale.pomocnikzarezije;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,6 +36,9 @@ public class Backup{
     static final String BCKP_DB_FILE_NAME = "PomocnikZaRezije.db";
     static final String DB_MIME = "application/x-sqlite3";
 
+    //DriveId mDriveId;
+
+
     public void backupDB(final GoogleApiClient googleApiClient, final Context context) {
 
         //query for chesk if bckp file exist
@@ -48,18 +52,33 @@ public class Backup{
                     @Override
                     public void onResult(DriveApi.MetadataBufferResult result) {
                         if(!result.getStatus().isSuccess()) {
-                            Toast.makeText(context, "Error!!!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, R.string.backup_error, Toast.LENGTH_LONG).show();
                         } else
                         {
                             for(Metadata m : result.getMetadataBuffer()) {
                                 if(m.getTitle().equals(BCKP_DB_FILE_NAME)){
-                                    Toast.makeText(context, "Bckp File found: " + m.getTitle(), Toast.LENGTH_LONG).show();
+                                    //TODO delete old file and create new
+                                    try
+                                    {
+                                        deleteBckpFile(googleApiClient, m.getDriveId());
+                                        createBckpFileGD(googleApiClient);
+                                        Toast.makeText(context, R.string.backup_done, Toast.LENGTH_LONG).show();
+                                    }
+                                    catch (Exception e) {
+                                        Log.e(context.getString(R.string.backup_error), e.getMessage());
+                                        Toast.makeText(context, R.string.backup_error, Toast.LENGTH_LONG).show();
+                                    }
                                     return;
                                 }
                             }
                             //if not found, create bckp file
-                            Toast.makeText(context, "Bckp File not found, creatig one! ", Toast.LENGTH_LONG).show();
-                            createBckpFileGD(googleApiClient);
+                            try {
+                                createBckpFileGD(googleApiClient);
+                                Toast.makeText(context, R.string.backup_done, Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                Log.e(context.getString(R.string.backup_error), e.getMessage());
+                                Toast.makeText(context, R.string.backup_error, Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
@@ -67,10 +86,10 @@ public class Backup{
 
     private void createBckpFileGD(final GoogleApiClient googleApiClient)
     {
-        final DriveFolder pFldr = Drive.DriveApi.getRootFolder(googleApiClient);
+        final DriveFolder rootFolder = Drive.DriveApi.getRootFolder(googleApiClient);
         final File file = new java.io.File("/data/data/com.sale.pomocnikzarezije/databases/" + DBHandler.DATABASE_NAME);
 
-        if (googleApiClient != null && pFldr != null && file != null) try {
+        if (googleApiClient != null && rootFolder != null && file != null) try {
             // create content from file
             Drive.DriveApi.newDriveContents(googleApiClient).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
                 @Override
@@ -96,15 +115,15 @@ public class Backup{
                         MetadataChangeSet meta = new MetadataChangeSet.Builder().setTitle(BCKP_DB_FILE_NAME).setMimeType(DB_MIME).build();
 
                         // now create file on GooDrive
-                        pFldr.createFile(googleApiClient, meta, cont).setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
+                        rootFolder.createFile(googleApiClient, meta, cont).setResultCallback(new ResultCallback<DriveFolder.DriveFileResult>() {
                             @Override
                             public void onResult(DriveFolder.DriveFileResult driveFileResult) {
                                 if (driveFileResult != null && driveFileResult.getStatus().isSuccess()) {
-                                    DriveFile dFil = driveFileResult != null && driveFileResult.getStatus().isSuccess() ?
+                                    DriveFile driveFile = driveFileResult != null && driveFileResult.getStatus().isSuccess() ?
                                             driveFileResult.getDriveFile() : null;
-                                    if (dFil != null) {
+                                    if (driveFile != null) {
                                         // BINGO , file uploaded
-                                        dFil.getMetadata(googleApiClient).setResultCallback(new ResultCallback<DriveResource.MetadataResult>() {
+                                        driveFile.getMetadata(googleApiClient).setResultCallback(new ResultCallback<DriveResource.MetadataResult>() {
                                             @Override
                                             public void onResult(DriveResource.MetadataResult metadataResult) {
                                                 if (metadataResult != null && metadataResult.getStatus().isSuccess()) {
@@ -113,12 +132,24 @@ public class Backup{
                                             }
                                         });
                                     }
-                                } else { /* report error */     }
+                                } else { Log.e("Error","Error create bckp file!");}
                             }
                         });
                     } catch (Exception e) { e.printStackTrace(); }
                 }
             });
         } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    private void deleteBckpFile(GoogleApiClient googleApiClient, DriveId driveId)
+    {
+        try{
+            DriveFile driveFile = Drive.DriveApi.getFile(googleApiClient, driveId);
+            driveFile.delete(googleApiClient);
+        } catch (Exception e){
+            Log.e("Delete backup error", e.getMessage());
+        }
+
+
     }
 }
