@@ -1,14 +1,10 @@
 package com.sale.pomocnikzarezije;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -63,17 +59,15 @@ public class TabMjesecno extends Fragment{
         spinnerMonth.setAdapter(monthAdapter);
 
         //add years
-        Integer[] yearItems = new Integer[25];
-        for(int i = 0; i <= 24; i++)
-        {
-            yearItems[i] = thisYear - i;
-        }
+        DBHandler dbHandler = new DBHandler(getContext());
+        Integer[] yearItems = dbHandler.getAllYearsInDB();
+
         ArrayAdapter<Integer> yearAdapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_spinner_item, yearItems);
         spinnerYear.setAdapter(yearAdapter);
 
         //spinners set now
         spinnerMonth.setSelection(monthAdapter.getPosition(thisMonth+1));
-        spinnerYear.setSelection(0);
+        spinnerYear.setSelection(yearAdapter.getPosition(thisYear));
 
         //set button listener
         Button button = (Button)view.findViewById(R.id.btnGetMonthly);

@@ -18,6 +18,7 @@ import com.sale.pomocnikzarezije.Utils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -365,6 +366,30 @@ public class DBHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(rezije.getId())});
         db.close();
         setBackupNeeded();
+    }
+
+    public Integer[] getAllYearsInDB()
+    {
+        List<Integer> years = new ArrayList();
+
+        String selectQuery = "select distinct strftime('%Y', " + DATE_PAYED + ") as year from " + TABLE_REZIJE + " union select strftime('%Y', CURRENT_TIMESTAMP) as year order by year desc";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                years.add(cursor.getInt(0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        Integer[] yearsArray = new Integer[years.size()];
+        for (int i=0; i < yearsArray.length; i++)
+        {
+            yearsArray[i] = years.get(i).intValue();
+        }
+        return yearsArray;
     }
 
     public ArrayList<Cursor> getData(String Query){

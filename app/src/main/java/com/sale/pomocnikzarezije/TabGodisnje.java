@@ -1,13 +1,7 @@
 package com.sale.pomocnikzarezije;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,16 +44,14 @@ public class TabGodisnje extends Fragment{
         int thisYear = calendar.get(Calendar.YEAR);
 
         //add years
-        Integer[] yearItems = new Integer[25];
-        for(int i = 0; i <= 24; i++)
-        {
-            yearItems[i] = thisYear - i;
-        }
+        DBHandler dbHandler = new DBHandler(getContext());
+        Integer[] yearItems = dbHandler.getAllYearsInDB();
+
         ArrayAdapter<Integer> yearAdapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_spinner_item, yearItems);
         spinnerYear.setAdapter(yearAdapter);
 
         //spinners set now
-        spinnerYear.setSelection(0);
+        spinnerYear.setSelection(yearAdapter.getPosition(thisYear));
 
         //set button listener
         Button button = (Button)view.findViewById(R.id.btnGetYearly);
