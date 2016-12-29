@@ -31,13 +31,10 @@ import java.io.OutputStream;
 
 public class Backup{
 
-    //TODO maknuti poziv iz main activitija u db akcije
-
     static final String BCKP_DB_FILE_NAME = "PomocnikZaRezije.db";
     static final String DB_MIME = "application/x-sqlite3";
 
-    //DriveId mDriveId;
-
+    private static Context context;
 
     public void backupDB(final GoogleApiClient googleApiClient, final Context context) {
 
@@ -57,7 +54,6 @@ public class Backup{
                         {
                             for(Metadata m : result.getMetadataBuffer()) {
                                 if(m.getTitle().equals(BCKP_DB_FILE_NAME)){
-                                    //TODO delete old file and create new
                                     try
                                     {
                                         deleteBckpFile(googleApiClient, m.getDriveId());
@@ -149,7 +145,5 @@ public class Backup{
         } catch (Exception e){
             Log.e("Delete backup error", e.getMessage());
         }
-
-
     }
 }

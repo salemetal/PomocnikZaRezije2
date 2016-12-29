@@ -16,18 +16,17 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveId;
 import com.sale.pomocnikzarezije.db.AndroidDatabaseManager;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    DriveId folderId;
     private GoogleApiClient googleApiClient;
     private static final int RESOLVE_CONNECTION_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,8 +84,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Backup backup = new Backup();
-        backup.backupDB(googleApiClient, getApplicationContext());
+
+        Utils utils = new Utils();
+        if(utils.readFromSharedPrefsInt(this.getApplicationContext(), Utils.PREF_BCKP_NAME, 0) == Utils.BACKUP_NEDDED) {
+            Backup backup = new Backup();
+            backup.backupDB(googleApiClient, getApplicationContext());
+            //set bckp not nedeed
+            utils.writeToSharedPrefsInt(this, Utils.PREF_BCKP_NAME, Utils.BACKUP_NOT_NEDDED);
+        }
     }
 
     @Override
@@ -132,5 +137,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 }
                 break;
         }
+    }
+
+    public void setBckpNeeded()
+    {
+
+
     }
 }

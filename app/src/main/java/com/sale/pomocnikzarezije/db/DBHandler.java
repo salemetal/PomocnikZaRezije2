@@ -2,6 +2,7 @@ package com.sale.pomocnikzarezije.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.SQLException;
@@ -12,6 +13,7 @@ import android.util.Log;
 import com.sale.pomocnikzarezije.Category;
 import com.sale.pomocnikzarezije.Rezije;
 import com.sale.pomocnikzarezije.RezijeYear;
+import com.sale.pomocnikzarezije.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ import java.util.Date;
  * Created by Sale on 10.4.2016..
  */
 public class DBHandler extends SQLiteOpenHelper {
+
+    Context context;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -64,6 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -118,7 +123,12 @@ public class DBHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_CATEGORIES, null, values);
         db.close();
+
+        Utils utils = new Utils();
+        setBackupNeeded();
     }
+
+
 
     public ArrayList<Category> getAllCategories() {
 
@@ -168,6 +178,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CATEGORIES, ID + " = ?",
                 new String[]{String.valueOf(category.getId())});
         db.close();
+        setBackupNeeded();
     }
 
     public void addEditRezije(Rezije rezija)
@@ -201,10 +212,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.insert(TABLE_REZIJE, null, values);
         }
         db.close();
-
-        //backup - TODO asinkrono???
-        //Backup backup = new Backup();
-        //backup.backupDB();
+        setBackupNeeded();
     }
 
     public Rezije getRezijeById(int id)
@@ -356,6 +364,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_REZIJE, ID + " = ?",
                 new String[]{String.valueOf(rezije.getId())});
         db.close();
+        setBackupNeeded();
     }
 
     public ArrayList<Cursor> getData(String Query){
@@ -403,5 +412,13 @@ public class DBHandler extends SQLiteOpenHelper {
             alc.set(1,Cursor2);
             return alc;
         }
+    }
+
+    private void setBackupNeeded()
+    {
+        SharedPreferences sharedPref = context.getSharedPreferences(Utils.PREFS_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(Utils.PREF_BCKP_NAME, 1);
+        editor.commit();
     }
 }

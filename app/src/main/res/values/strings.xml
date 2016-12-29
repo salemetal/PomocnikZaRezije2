@@ -59,6 +59,5 @@
     <string name="error_creating_folder">Greška kod kreiranja backup foldera!</string>
     <string name="bckp_folder_created">krairan backup folder na Google Drive!</string>
     <string name="backup_done">Backup obavljen na Google Drive</string>
-    <string name="backup_error">Greška pri  backupu!</string>
-    <string name="backup_error2">Backup eror:</string>
+    <string name="backup_error">Greška pri backupu!</string>
 </resources>
