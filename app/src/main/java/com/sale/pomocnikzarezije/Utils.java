@@ -9,10 +9,9 @@ import android.widget.EditText;
  */
 public class Utils{
 
-    public static final int BACKUP_NEDDED = 1;
-    public static final int BACKUP_NOT_NEDDED = 0;
+    public static final String PREF_FIRST_TIME  = "my_first_time";
     public static final String PREFS_FILE_NAME  = "prefs";
-    public static final String PREF_BCKP_NAME  = "is_bckp_needed";
+    public static final String PREF_BCKP  = "is_bckp_needed";
 
     public static boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().length() == 0;
@@ -55,17 +54,17 @@ public class Utils{
 
     }
 
-    public void writeToSharedPrefsInt(Context context, String prefName, int setValue)
+    public void writeToSharedPrefsBool(Context context, String prefName, boolean setValue)
     {
         SharedPreferences sharedPref = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(prefName, setValue);
+        editor.putBoolean(prefName, setValue);
         editor.commit();
     }
 
-    public int readFromSharedPrefsInt(Context context, String prefName, int defaultValue)
+    public boolean readFromSharedPrefsBool(Context context, String prefName, boolean defaultValue)
     {
         SharedPreferences sharedPref = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        return sharedPref.getInt(prefName, defaultValue);
+        return sharedPref.getBoolean(prefName, defaultValue);
     }
 }

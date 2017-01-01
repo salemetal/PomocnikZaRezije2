@@ -443,7 +443,7 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SharedPreferences sharedPref = context.getSharedPreferences(Utils.PREFS_FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(Utils.PREF_BCKP_NAME, 1);
+        editor.putBoolean(Utils.PREF_BCKP, true);
         editor.commit();
     }
 }

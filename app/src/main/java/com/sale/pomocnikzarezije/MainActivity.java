@@ -1,5 +1,7 @@
 package com.sale.pomocnikzarezije;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //TODO makni
+        //MainActivity.this.getSharedPreferences(Utils.PREFS_FILE_NAME, 0).edit().clear().commit();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.kategorije));
@@ -86,11 +91,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onConnected(@Nullable Bundle bundle) {
 
         Utils utils = new Utils();
-        if(utils.readFromSharedPrefsInt(this.getApplicationContext(), Utils.PREF_BCKP_NAME, 0) == Utils.BACKUP_NEDDED) {
+
+        if(firstTime(utils))
+        {
+            confirmRestoreGoogleDrive(googleApiClient);
+        }
+
+        if(utils.readFromSharedPrefsBool(this.getApplicationContext(), Utils.PREF_BCKP, false)) {
             Backup backup = new Backup();
-            backup.backupDB(googleApiClient, getApplicationContext());
+            backup.backupDBToGD(googleApiClient, this.getApplicationContext());
             //set bckp not nedeed
-            utils.writeToSharedPrefsInt(this, Utils.PREF_BCKP_NAME, Utils.BACKUP_NOT_NEDDED);
+            utils.writeToSharedPrefsBool(this, Utils.PREF_BCKP, false);
         }
     }
 
@@ -139,9 +150,45 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    public void setBckpNeeded()
+    private boolean firstTime(Utils utils)
     {
+        return utils.readFromSharedPrefsBool(this.getApplicationContext(), Utils.PREF_FIRST_TIME, true);
+    }
 
+    private void confirmRestoreGoogleDrive(final GoogleApiClient googleApiClient) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        try {
+            builder
+                    .setMessage(R.string.want_bckp_google_drive)
+                    .setPositiveButton(R.string.da, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            restoreFromGoogleDrive(googleApiClient);
+                        }
+                    })
+                    .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    private void restoreFromGoogleDrive(GoogleApiClient googleApiClient) {
+        try
+        {
+            Backup backup = new Backup();
+            backup.restoreFromGD(googleApiClient, this.getApplicationContext());
+        }
+        catch (Exception e)
+        {
+            Log.e("Bckp GD error: ", e.getMessage());
+        }
 
     }
 }

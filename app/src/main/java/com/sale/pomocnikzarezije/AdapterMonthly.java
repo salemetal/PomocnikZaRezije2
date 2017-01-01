@@ -44,6 +44,7 @@ public class AdapterMonthly extends ArrayAdapter<Rezije> {
 
         tv = (TextView) view.findViewById(R.id.tvMonthlyDatePayed);
         tv.setText(context.getString(R.string.placeno) + new SimpleDateFormat("dd.MM.yyyy").format(data.get(position).getDatePayed()));
+        tv.setTextColor(context.getResources().getColor(R.color.mainGreen));
 
         return view;
     }

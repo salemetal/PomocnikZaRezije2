@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PomocnikZaRezije</string>
+    <string name="app_name">Pomocnik Za Rezije</string>
     <string name="action_settings">Settings</string>
     <string name="welcome_message">Dodajte kategorije pritiskom na + tipku.</string>
 
@@ -60,4 +60,6 @@
     <string name="bckp_folder_created">krairan backup folder na Google Drive!</string>
     <string name="backup_done">Backup obavljen na Google Drive</string>
     <string name="backup_error">Greška pri backupu!</string>
+    <string name="want_bckp_google_drive">Želite li napraviti restore s Google Drive-a?</string>
+    <string name="restore_error">Greška pri restore-u s Google Drive-a</string>
 </resources>

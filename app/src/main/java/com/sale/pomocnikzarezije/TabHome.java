@@ -174,7 +174,7 @@ public class TabHome extends Fragment {
 
         try {
             builder
-                    .setMessage(String.format("Jeste li sigurni da želite obrisati kategoriju %s? Brišu se i svi podai vezani za nju!", category.getName()))
+                    .setMessage(String.format("Jeste li sigurni da želite obrisati kategoriju %s? Brišu se i svi podaci vezani za nju!", category.getName()))
                     .setPositiveButton(R.string.da, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
