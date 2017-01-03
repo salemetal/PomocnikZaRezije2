@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sale.pomocnikzarezije.db.DBHandler;
@@ -44,7 +47,14 @@ public class TabHome extends Fragment {
 
         if (categoryList.isEmpty())
         {
-            Toast.makeText(this.getContext(), R.string.welcome_message, Toast.LENGTH_LONG).show();
+            LinearLayout layout = (LinearLayout)rootView.findViewById(R.id.llTabHome);
+            TextView textView = new TextView(this.getContext());
+            textView.setText(R.string.welcome_message);
+            textView.setPadding(20,20,0,0);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            layout.addView(textView);
+
+            //Toast.makeText(this.getContext(), R.string.welcome_message, Toast.LENGTH_LONG).show();
         }
 
         else
@@ -80,7 +90,7 @@ public class TabHome extends Fragment {
             registerForContextMenu(lv);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab_add_category);
+        FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fab_add_category);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

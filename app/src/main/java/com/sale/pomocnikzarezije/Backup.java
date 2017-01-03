@@ -37,9 +37,7 @@ public class Backup{
     static final String BCKP_DB_FILE_NAME = "PomocnikZaRezije.db";
     static final String DB_MIME = "application/x-sqlite3";
 
-    private static Context context;
-
-    public void backupDBToGD(final GoogleApiClient googleApiClient, final Context context) {
+    public void backupDBToGoogleDrive(final GoogleApiClient googleApiClient, final Context context) {
 
         //query for chesk if bckp file exist
         Query query = new Query.Builder()
@@ -59,8 +57,8 @@ public class Backup{
                                 if(m.getTitle().equals(BCKP_DB_FILE_NAME)){
                                     try
                                     {
-                                        deleteBckpFile(googleApiClient, m.getDriveId());
-                                        createBckpFileGD(googleApiClient);
+                                        deleteBckpFileGoogleDrive(googleApiClient, m.getDriveId());
+                                        createBckpFileGoogleDrive(googleApiClient);
                                         Toast.makeText(context, R.string.backup_done, Toast.LENGTH_LONG).show();
                                     }
                                     catch (Exception e) {
@@ -72,7 +70,7 @@ public class Backup{
                             }
                             //if not found, create bckp file
                             try {
-                                createBckpFileGD(googleApiClient);
+                                createBckpFileGoogleDrive(googleApiClient);
                                 Toast.makeText(context, R.string.backup_done, Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 Log.e(context.getString(R.string.backup_error), e.getMessage());
@@ -83,7 +81,7 @@ public class Backup{
                 });
     }
 
-    public void restoreFromGD(final GoogleApiClient googleApiClient, final Context context) {
+    public void restoreFromGoogleDrive(final GoogleApiClient googleApiClient, final Context context) {
 
         //query for chesk if bckp file exist
         Query query = new Query.Builder()
@@ -103,15 +101,13 @@ public class Backup{
                                 if(m.getTitle().equals(BCKP_DB_FILE_NAME)){
                                     try
                                     {
-                                        //TODO makni
-                                        Toast.makeText(context, "bckp file postoji na Google Drive", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, R.string.restoring, Toast.LENGTH_SHORT).show();
 
                                         DriveFile bckpDriveFile = Drive.DriveApi.getFile(googleApiClient, m.getDriveId());
                                         bckpDriveFile.open(googleApiClient, DriveFile.MODE_READ_ONLY, null)
                                                 .setResultCallback(contentsOpenedCallback);
 
-
-
+                                        Toast.makeText(context, R.string.restored, Toast.LENGTH_SHORT).show();
                                     }
                                     catch (Exception e) {
                                         Log.e(context.getString(R.string.backup_error), e.getMessage());
@@ -152,9 +148,6 @@ public class Backup{
                             fileOutputStream.flush();
                         }
 
-                        System.out.println("Backup ok!");
-
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -170,7 +163,7 @@ public class Backup{
                 }
             };
 
-    private void createBckpFileGD(final GoogleApiClient googleApiClient)
+    private void createBckpFileGoogleDrive(final GoogleApiClient googleApiClient)
     {
         final DriveFolder rootFolder = Drive.DriveApi.getRootFolder(googleApiClient);
         final File file = new java.io.File("/data/data/com.sale.pomocnikzarezije/databases/" + DBHandler.DATABASE_NAME);
@@ -227,13 +220,13 @@ public class Backup{
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private void deleteBckpFile(GoogleApiClient googleApiClient, DriveId driveId)
+    private void deleteBckpFileGoogleDrive(GoogleApiClient googleApiClient, DriveId driveId)
     {
         try{
             DriveFile bckpDriveFile = Drive.DriveApi.getFile(googleApiClient, driveId);
             bckpDriveFile.delete(googleApiClient);
         } catch (Exception e){
-            Log.e("Delete backup error", e.getMessage());
+            throw e;
         }
     }
 }

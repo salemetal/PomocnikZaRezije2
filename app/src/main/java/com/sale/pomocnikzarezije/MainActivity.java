@@ -95,11 +95,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if(firstTime(utils))
         {
             confirmRestoreGoogleDrive(googleApiClient);
+            utils.writeToSharedPrefsBool(this.getApplicationContext(), utils.PREF_FIRST_TIME, false);
         }
 
         if(utils.readFromSharedPrefsBool(this.getApplicationContext(), Utils.PREF_BCKP, false)) {
             Backup backup = new Backup();
-            backup.backupDBToGD(googleApiClient, this.getApplicationContext());
+            backup.backupDBToGoogleDrive(googleApiClient, this.getApplicationContext());
             //set bckp not nedeed
             utils.writeToSharedPrefsBool(this, Utils.PREF_BCKP, false);
         }
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             restoreFromGoogleDrive(googleApiClient);
+
                         }
                     })
                     .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
@@ -183,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         try
         {
             Backup backup = new Backup();
-            backup.restoreFromGD(googleApiClient, this.getApplicationContext());
+            backup.restoreFromGoogleDrive(googleApiClient, this.getApplicationContext());
         }
         catch (Exception e)
         {
