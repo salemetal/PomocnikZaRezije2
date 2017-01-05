@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //TODO makni
-        //MainActivity.this.getSharedPreferences(Utils.PREFS_FILE_NAME, 0).edit().clear().commit();
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.kategorije));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.Mjesečno));
@@ -166,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             restoreFromGoogleDrive(googleApiClient);
-
                         }
                     })
                     .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
@@ -192,5 +188,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Log.e("Bckp GD error: ", e.getMessage());
         }
 
+    }
+
+    public void restored() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }
