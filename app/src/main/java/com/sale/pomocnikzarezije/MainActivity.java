@@ -1,6 +1,7 @@
 package com.sale.pomocnikzarezije;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -79,6 +80,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 Intent intent = new Intent(this, AndroidDatabaseManager.class);
                 this.startActivity(intent);
                 return true;
+            case R.id.menu_backup:
+                confirmBackupGoogleDrive(googleApiClient, this.getApplicationContext());
+                return true;
+            case R.id.menu_restore:
+                confirmRestoreGoogleDrive(googleApiClient);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -86,21 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
-        Utils utils = new Utils();
-
-        if(firstTime(utils))
-        {
-            confirmRestoreGoogleDrive(googleApiClient);
-            utils.writeToSharedPrefsBool(this.getApplicationContext(), utils.PREF_FIRST_TIME, false);
-        }
-
-        if(utils.readFromSharedPrefsBool(this.getApplicationContext(), Utils.PREF_BCKP, false)) {
-            Backup backup = new Backup();
-            backup.backupDBToGoogleDrive(googleApiClient, this.getApplicationContext());
-            //set bckp not nedeed
-            utils.writeToSharedPrefsBool(this, Utils.PREF_BCKP, false);
-        }
     }
 
     @Override
@@ -148,11 +140,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    private boolean firstTime(Utils utils)
-    {
-        return utils.readFromSharedPrefsBool(this.getApplicationContext(), Utils.PREF_FIRST_TIME, true);
-    }
-
     private void confirmRestoreGoogleDrive(final GoogleApiClient googleApiClient) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
@@ -163,6 +150,30 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             restoreFromGoogleDrive(googleApiClient);
+                        }
+                    })
+                    .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    private void confirmBackupGoogleDrive(final GoogleApiClient googleApiClient, final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        try {
+            builder
+                    .setMessage(R.string.want_backup_google_drive)
+                    .setPositiveButton(R.string.da, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            backuptoGoogleDrive(googleApiClient, context);
                         }
                     })
                     .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
@@ -190,9 +201,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    public void restored() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
+    private void backuptoGoogleDrive(GoogleApiClient googleApiClient, Context context) {
+        try
+        {
+            Backup backup = new Backup();
+            backup.backupDBToGoogleDrive(googleApiClient, context);
+        }
+        catch (Exception e)
+        {
+            Log.e("Bckp GD error: ", e.getMessage());
+        }
+
     }
 }

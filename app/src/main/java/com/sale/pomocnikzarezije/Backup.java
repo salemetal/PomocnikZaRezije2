@@ -148,9 +148,6 @@ public class Backup{
                             fileOutputStream.flush();
                         }
 
-                        MainActivity activity = new MainActivity();
-                        activity.restored();
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
