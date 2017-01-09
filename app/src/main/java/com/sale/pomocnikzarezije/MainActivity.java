@@ -14,12 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
 import com.sale.pomocnikzarezije.db.AndroidDatabaseManager;
+import com.sale.pomocnikzarezije.db.DBHandler;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 return true;
             case R.id.menu_restore:
                 confirmRestoreGoogleDrive(googleApiClient);
+                return true;
+            case R.id.menu_reset:
+                confirmResetDb(this.getApplicationContext());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -188,11 +193,52 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    private void confirmResetDb(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        try {
+            builder
+                    .setMessage("želite li stvarno obrisati sve podatke iz baze podataka?")
+                    .setPositiveButton(R.string.da, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            resetDb(context);
+
+                        }
+                    })
+                    .setNegativeButton(R.string.ne, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    private void resetDb(Context context) {
+        try
+        {
+            DBHandler dbHandler = new DBHandler(context);
+            dbHandler.resetDb();
+            refresh();
+            Toast.makeText(this.getApplicationContext(), R.string.db_reset, Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e)
+        {
+            Log.e("Bckp GD error: ", e.getMessage());
+        }
+    }
+
+
     private void restoreFromGoogleDrive(GoogleApiClient googleApiClient) {
         try
         {
             Backup backup = new Backup();
             backup.restoreFromGoogleDrive(googleApiClient, this.getApplicationContext());
+            refresh();
         }
         catch (Exception e)
         {
@@ -212,5 +258,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Log.e("Bckp GD error: ", e.getMessage());
         }
 
+    }
+
+    private void refresh()
+    {
+        finish();
+        startActivity(getIntent());
     }
 }

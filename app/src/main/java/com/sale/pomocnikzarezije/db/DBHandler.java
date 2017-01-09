@@ -2,7 +2,6 @@ package com.sale.pomocnikzarezije.db;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.SQLException;
@@ -104,6 +103,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REZIJE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
@@ -126,7 +126,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
 
         Utils utils = new Utils();
-        setBackupNeeded();
     }
 
 
@@ -179,7 +178,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CATEGORIES, ID + " = ?",
                 new String[]{String.valueOf(category.getId())});
         db.close();
-        setBackupNeeded();
     }
 
     public void addEditRezije(Rezije rezija)
@@ -213,7 +211,6 @@ public class DBHandler extends SQLiteOpenHelper {
             db.insert(TABLE_REZIJE, null, values);
         }
         db.close();
-        setBackupNeeded();
     }
 
     public Rezije getRezijeById(int id)
@@ -365,7 +362,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_REZIJE, ID + " = ?",
                 new String[]{String.valueOf(rezije.getId())});
         db.close();
-        setBackupNeeded();
     }
 
     public Integer[] getAllYearsInDB()
@@ -439,11 +435,15 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void setBackupNeeded()
+    public void resetDb()
     {
-        SharedPreferences sharedPref = context.getSharedPreferences(Utils.PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(Utils.PREF_BCKP, true);
-        editor.commit();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_REZIJE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+
+        // Creating tables again
+        onCreate(db);
     }
 }
