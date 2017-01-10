@@ -1,6 +1,5 @@
 package com.sale.pomocnikzarezije;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,6 +10,7 @@ public class Rezije extends PDF417 {
     private int id;
     protected float amount;
     private Date datePayed;
+    private String paymentInfo;
     private int categoryId;
     protected String categoryName;
     private Date dateCreated;
@@ -39,6 +39,14 @@ public class Rezije extends PDF417 {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public String getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(String paymentInfo) {
+        this.paymentInfo = paymentInfo;
     }
 
     public Date getDatePayed() {

@@ -80,6 +80,9 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
             EditText editText = (EditText)findViewById(R.id.editTextIznos);
             editText.setText(Float.toString(rezija.getAmount()));
 
+            editText = (EditText)findViewById(R.id.editTextInfoPlacanje);
+            editText.setText(rezija.getPaymentInfo());
+
             editText = (EditText)findViewById(R.id.editTextPLatitelj);
             editText.setText(rezija.getPlatitelj());
 
@@ -222,7 +225,10 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
             rezija.setId(id);
             rezija.setAmount(iznos);
 
-            EditText editText = (EditText)findViewById(R.id.editTextDatum);
+            EditText editText = (EditText)findViewById(R.id.editTextInfoPlacanje);
+            rezija.setPaymentInfo(editText.getText().toString().trim());
+
+            editText = (EditText)findViewById(R.id.editTextDatum);
             rezija.setDatePayed(dateFormatter.parse(editText.getText().toString()));
 
             editText = (EditText)findViewById(R.id.editTextPLatitelj);

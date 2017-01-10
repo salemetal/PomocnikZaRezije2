@@ -15,7 +15,7 @@
     <string name="scan_nije_uspio">Scan nije uspio!</string>
     <string name="iznos">Iznos</string>
     <string name="obavezni_podaci">Obavezni podaci</string>
-    <string name="dodatni_podaci">Dodatni podaci</string>
+    <string name="dodatni_podaci">Dodatni podaci (s računa)</string>
     <string name="platitelj">Platitelj</string>
     <string name="adresa_platitelja">Adresa platitelja</string>
     <string name="primatelj">Primatelj</string>
@@ -63,4 +63,5 @@
     <string name="reset_baze">Reset baze</string>
     <string name="want_backup_google_drive">"Želite li napraviti backup na Google Drive? Pregazit će se zadnji backup! Morate biti spojeni na internet!"</string>
     <string name="db_reset">Baza resetirana!</string>
+    <string name="info_o_uplati">Info o plaćanju</string>
 </resources>

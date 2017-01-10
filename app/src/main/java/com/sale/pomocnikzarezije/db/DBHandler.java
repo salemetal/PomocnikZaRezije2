@@ -30,7 +30,7 @@ public class DBHandler extends SQLiteOpenHelper {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
     // Database Name
     public static final String DATABASE_NAME = "REZIJE_DB";
 
@@ -51,6 +51,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String ID_CATEGORY = "ID_KATEGORIJE";
     private static final String AMOUNT = "IZNOS";
     private static final String DATE_PAYED = "DATUM_PLACANJA";
+    private static final String INFO = "INFO";
     //Dodatni podaci -  scan PDF417
     private static final String PLATITELJ = "PLATITELJ";
     private static final String ADR_PLAT = "ADRESA_PLAT";
@@ -86,6 +87,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 + ID_CATEGORY + " INTEGER NOT NULL,"
                 + DATE_PAYED + " DATETIME NOT NULL,"
                 + AMOUNT + " REAL NOT NULL,"
+                + INFO + " TEXT,"
                 + PLATITELJ + " TEXT,"
                 + ADR_PLAT + " TEXT,"
                 + PRIMATELJ + " TEXT,"
@@ -188,6 +190,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         values.put(DATE_PAYED, dateFormat.format(rezija.getDatePayed()));
         values.put(AMOUNT, rezija.getAmount());
+        values.put(INFO, rezija.getPaymentInfo());
         values.put(PLATITELJ, rezija.getPlatitelj());
         values.put(ADR_PLAT, rezija.getAdresaPlatitelja());
         values.put(PRIMATELJ, rezija.getPrimatelj());
@@ -221,6 +224,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 + ID_CATEGORY + ","
                 + DATE_PAYED + ","
                 + AMOUNT + ","
+                + INFO + ","
                 + PLATITELJ + ","
                 + ADR_PLAT + ","
                 + PRIMATELJ + ","
@@ -246,15 +250,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 rezija.setDatePayed(dateFormat.parse(cursor.getString(1)));
             } catch (Exception ex) {}
             rezija.setAmount(cursor.getFloat(2));
-            rezija.setPlatitelj(cursor.getString(3));
-            rezija.setAdresaPlatitelja(cursor.getString(4));
-            rezija.setPrimatelj(cursor.getString(5));
-            rezija.setAdresaPrimatelja(cursor.getString(6));
-            rezija.setIbanPrimatelja(cursor.getString(7));
-            rezija.setModel(cursor.getString(8));
-            rezija.setPozivNaBrojPrimatelja(cursor.getString(9));
-            rezija.setSifraNamjene(cursor.getString(10));
-            rezija.setOpisPlacanja(cursor.getString(11));
+            rezija.setPaymentInfo(cursor.getString(3));
+            rezija.setPlatitelj(cursor.getString(4));
+            rezija.setAdresaPlatitelja(cursor.getString(5));
+            rezija.setPrimatelj(cursor.getString(6));
+            rezija.setAdresaPrimatelja(cursor.getString(7));
+            rezija.setIbanPrimatelja(cursor.getString(8));
+            rezija.setModel(cursor.getString(9));
+            rezija.setPozivNaBrojPrimatelja(cursor.getString(10));
+            rezija.setSifraNamjene(cursor.getString(11));
+            rezija.setOpisPlacanja(cursor.getString(12));
             try{
                 rezija.setDateCreated(dateFormat.parse(cursor.getString(12)));
             } catch (Exception ex) {}
@@ -277,6 +282,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT " + TABLE_REZIJE + "." + ID + ","
                 + TABLE_REZIJE + "." + AMOUNT + ","
                 + TABLE_REZIJE + "." + DATE_PAYED + ","
+                + TABLE_REZIJE + "." + INFO + ","
                 + TABLE_CATEGORIES + "." + NAME
                 + " FROM " + TABLE_REZIJE
                 + " INNER JOIN " + TABLE_CATEGORIES + " ON " + TABLE_REZIJE + "." + ID_CATEGORY + " = " + TABLE_CATEGORIES + "." + ID
@@ -291,11 +297,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 Rezije rezije = new Rezije();
                 rezije.setId(cursor.getInt(0));
                 rezije.setAmount(cursor.getFloat(1));
+
                 try {
                     rezije.setDatePayed(dateFormat.parse(cursor.getString(2)));
                 } catch (Exception ex){}
 
-                rezije.setCategoryName(cursor.getString(3));
+                rezije.setPaymentInfo(cursor.getString(3));
+                rezije.setCategoryName(cursor.getString(4));
                 rezijeList.add(rezije);
             } while (cursor.moveToNext());
         }
