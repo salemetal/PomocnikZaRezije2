@@ -64,4 +64,5 @@
     <string name="want_backup_google_drive">"Želite li napraviti backup na Google Drive? Pregazit će se zadnji backup! Morate biti spojeni na internet!"</string>
     <string name="db_reset">Baza resetirana!</string>
     <string name="info_o_uplati">Info o plaćanju</string>
+    <string name="refresh">refresh</string>
 </resources>

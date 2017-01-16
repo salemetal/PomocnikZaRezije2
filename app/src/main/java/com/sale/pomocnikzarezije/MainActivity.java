@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             case R.id.menu_reset:
                 confirmResetDb(this.getApplicationContext());
                 return true;
+            case R.id.action_refresh:
+                refresh();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
