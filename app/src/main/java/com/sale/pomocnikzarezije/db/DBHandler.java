@@ -283,6 +283,15 @@ public class DBHandler extends SQLiteOpenHelper {
                 + TABLE_REZIJE + "." + AMOUNT + ","
                 + TABLE_REZIJE + "." + DATE_PAYED + ","
                 + TABLE_REZIJE + "." + INFO + ","
+                + TABLE_REZIJE + "." + PLATITELJ + ","
+                + TABLE_REZIJE + "." + ADR_PLAT + ","
+                + TABLE_REZIJE + "." + PRIMATELJ + ","
+                + TABLE_REZIJE + "." + ADR_PRIM + ","
+                + TABLE_REZIJE + "." + IBAN_PRIM + ","
+                + TABLE_REZIJE + "." + MODEL + ","
+                + TABLE_REZIJE + "." + PNBPR + ","
+                + TABLE_REZIJE + "." + SIFRA + ","
+                + TABLE_REZIJE + "." + OPIS_PL + ","
                 + TABLE_CATEGORIES + "." + NAME
                 + " FROM " + TABLE_REZIJE
                 + " INNER JOIN " + TABLE_CATEGORIES + " ON " + TABLE_REZIJE + "." + ID_CATEGORY + " = " + TABLE_CATEGORIES + "." + ID
@@ -303,7 +312,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 } catch (Exception ex){}
 
                 rezije.setPaymentInfo(cursor.getString(3));
-                rezije.setCategoryName(cursor.getString(4));
+                rezije.setPlatitelj(cursor.getString(4));
+                rezije.setAdresaPlatitelja(cursor.getString(5));
+                rezije.setPrimatelj(cursor.getString(6));
+                rezije.setAdresaPrimatelja(cursor.getString(7));
+                rezije.setIbanPrimatelja(cursor.getString(8));
+                rezije.setModel(cursor.getString(9));
+                rezije.setPozivNaBrojPrimatelja(cursor.getString(10));
+                rezije.setSifraNamjene(cursor.getString(11));
+                rezije.setOpisPlacanja(cursor.getString(12));
+                rezije.setCategoryName(cursor.getString(13));
                 rezijeList.add(rezije);
             } while (cursor.moveToNext());
         }

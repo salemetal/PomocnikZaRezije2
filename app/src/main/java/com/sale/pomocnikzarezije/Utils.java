@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Created by Sale on 10.4.2016..
  */
@@ -16,6 +19,8 @@ public class Utils{
     public static boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().length() == 0;
     }
+
+    public static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy.", Locale.US);
 
     public static String getMonth(int month) {
 

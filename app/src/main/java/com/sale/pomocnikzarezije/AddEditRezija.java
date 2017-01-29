@@ -18,16 +18,14 @@ import android.widget.Toast;
 import com.sale.pomocnikzarezije.db.DBHandler;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Created by Sale on 16.10.2016..
  */
 public class AddEditRezija extends AppCompatActivity implements View.OnClickListener {
 
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.yyyy.", Locale.US);
+
     private DatePickerDialog pickDateDialog;
     private EditText editDate;
     private EditText editIznos;
@@ -60,14 +58,14 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
 
         //default date today
         Calendar calendar = Calendar.getInstance();
-        editDate.setText(dateFormatter.format(calendar.getTime()));
+        editDate.setText(Utils.dateFormatter.format(calendar.getTime()));
 
         pickDateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, month, dayOfMonth);
-                editDate.setText(dateFormatter.format(newDate.getTime()));
+                editDate.setText(Utils.dateFormatter.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -79,6 +77,9 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
 
             EditText editText = (EditText)findViewById(R.id.editTextIznos);
             editText.setText(Float.toString(rezija.getAmount()));
+
+            editText = (EditText)findViewById(R.id.editTextDatum);
+            editText.setText(Utils.dateFormatter.format(rezija.getDatePayed()));
 
             editText = (EditText)findViewById(R.id.editTextInfoPlacanje);
             editText.setText(rezija.getPaymentInfo());
@@ -229,7 +230,7 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
             rezija.setPaymentInfo(editText.getText().toString().trim());
 
             editText = (EditText)findViewById(R.id.editTextDatum);
-            rezija.setDatePayed(dateFormatter.parse(editText.getText().toString()));
+            rezija.setDatePayed(Utils.dateFormatter.parse(editText.getText().toString()));
 
             editText = (EditText)findViewById(R.id.editTextPLatitelj);
             rezija.setPlatitelj(editText.getText().toString().trim());

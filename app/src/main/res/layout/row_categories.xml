@@ -11,7 +11,7 @@
             android:id="@+id/tvCategoriesName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".9"
+            android:layout_weight=".8"
             android:textSize="@dimen/text_size_cat_cat"
             android:paddingLeft="@dimen/padding_left_rows"
             android:layout_gravity="center_vertical"

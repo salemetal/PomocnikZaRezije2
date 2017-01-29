@@ -87,7 +87,7 @@ public class TabMjesecno extends Fragment{
         setData(view, thisMonth + 1, thisYear);
     }
 
-    private void setData(View view, int month, int year) {
+    private void setData(final View view, int month, int year) {
 
         dbHandler = new DBHandler(this.getContext());
         rezijeList = dbHandler.getRezijeByMonthYear(month, year);
@@ -117,6 +117,66 @@ public class TabMjesecno extends Fragment{
                     return false;
                 }
             });
+
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                    Rezije rezija = rezijeList.get(position);
+
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View dialoglayout = inflater.inflate(R.layout.rezija_dialog, null);
+
+                    TextView textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogIznos);
+                    textView.setText(Float.toString(rezija.getAmount()));
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogDatum);
+                    textView.setText(Utils.dateFormatter.format(rezija.getDatePayed()));
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogInfo);
+                    textView.setText(rezija.getPaymentInfo());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogPlatitelj);
+                    textView.setText(rezija.getPlatitelj());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogAdrPlat);
+                    textView.setText(rezija.getAdresaPlatitelja());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogPrimatelj);
+                    textView.setText(rezija.getPrimatelj());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogAdrPrim);
+                    textView.setText(rezija.getAdresaPrimatelja());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogIbanPrim);
+                    textView.setText(rezija.getIbanPrimatelja());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogModel);
+                    textView.setText(rezija.getModel());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaPnbp);
+                    textView.setText(rezija.getPozivNaBrojPrimatelja());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaSifraNamjene);
+                    textView.setText(rezija.getSifraNamjene());
+
+                    textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaOpisPlacanja);
+                    textView.setText(rezija.getOpisPlacanja());
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setView(dialoglayout);
+                    builder.setTitle(rezija.getCategoryName());
+
+                    builder.setNegativeButton(R.string.zatvori, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+
+                        }
+                    }).show();
+
+                }
+            });
+
             lv.setAdapter(adapter);
             registerForContextMenu(lv);
 
