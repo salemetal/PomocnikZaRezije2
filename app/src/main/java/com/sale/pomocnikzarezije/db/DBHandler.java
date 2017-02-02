@@ -130,8 +130,6 @@ public class DBHandler extends SQLiteOpenHelper {
         Utils utils = new Utils();
     }
 
-
-
     public ArrayList<Category> getAllCategories() {
 
         ArrayList<Category> categoryList = new ArrayList();
@@ -334,11 +332,11 @@ public class DBHandler extends SQLiteOpenHelper {
         ArrayList<RezijeYear> rezijeList = new ArrayList();
 
         String selectQuery = "SELECT "
-                + "SUM(" + TABLE_REZIJE + "." + AMOUNT + ") AS TOTAL,"
+                + "IFNULL(SUM(" + TABLE_REZIJE + "." + AMOUNT + "),0) AS TOTAL,"
                 + TABLE_CATEGORIES + "." + NAME
-                + " FROM " + TABLE_REZIJE
-                + " INNER JOIN " + TABLE_CATEGORIES + " ON " + TABLE_REZIJE + "." + ID_CATEGORY + " = " + TABLE_CATEGORIES + "." + ID
-                + " WHERE strftime('%Y'," + TABLE_REZIJE + "." + DATE_PAYED + ") " + " = " + "'" + year +"'"
+                + " FROM " + TABLE_CATEGORIES
+                + " LEFT JOIN " + TABLE_REZIJE + " ON " + TABLE_REZIJE + "." + ID_CATEGORY + " = " + TABLE_CATEGORIES + "." + ID
+                + " WHERE strftime('%Y'," + TABLE_REZIJE + "." + DATE_PAYED + ") " + " = " + "'" + year +"' OR " + TABLE_REZIJE + "." + DATE_PAYED + " IS NULL"
                 + " GROUP BY " + TABLE_CATEGORIES + "." + NAME
                 + " ORDER BY TOTAL DESC, " + TABLE_CATEGORIES + "." + NAME;
 
