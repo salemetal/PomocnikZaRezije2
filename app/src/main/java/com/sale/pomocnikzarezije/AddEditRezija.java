@@ -36,11 +36,8 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_rezije);
 
-        id = (getIntent().getIntExtra("rezija_id", 0));
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getIntent().getExtras().getString("item_name"));
 
         //back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,11 +66,14 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
+        id = (getIntent().getIntExtra("rezija_id", 0));
         //ako dolazi edit id rezije
         if (id > 0)
         {
             DBHandler dbHandler = new DBHandler(this);
             Rezije rezija =  dbHandler.getRezijeById(id);
+
+            getSupportActionBar().setTitle(rezija.getCategoryName());
 
             EditText editText = (EditText)findViewById(R.id.editTextIznos);
             editText.setText(Float.toString(rezija.getAmount()));
@@ -110,6 +110,10 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
 
             editText = (EditText)findViewById(R.id.editTextOpisPl);
             editText.setText(rezija.getOpisPlacanja());
+        }
+        else
+        {
+            getSupportActionBar().setTitle(getIntent().getExtras().getString("item_name"));
         }
     }
 

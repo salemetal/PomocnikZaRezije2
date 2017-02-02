@@ -219,23 +219,25 @@ public class DBHandler extends SQLiteOpenHelper {
         Rezije rezija = new Rezije();
 
         String selectQuery = "SELECT "
-                + ID_CATEGORY + ","
-                + DATE_PAYED + ","
-                + AMOUNT + ","
-                + INFO + ","
-                + PLATITELJ + ","
-                + ADR_PLAT + ","
-                + PRIMATELJ + ","
-                + ADR_PRIM + ","
-                + IBAN_PRIM + ","
-                + MODEL + ","
-                + PNBPR + ","
-                + SIFRA + ","
-                + OPIS_PL + ","
-                + DATE_CREATE + ","
-                + DATE_EDIT
+                + TABLE_REZIJE + "." + ID_CATEGORY + ","
+                + TABLE_REZIJE + "." + DATE_PAYED + ","
+                + TABLE_REZIJE + "." + AMOUNT + ","
+                + TABLE_REZIJE + "." + INFO + ","
+                + TABLE_REZIJE + "." + PLATITELJ + ","
+                + TABLE_REZIJE + "." + ADR_PLAT + ","
+                + TABLE_REZIJE + "." + PRIMATELJ + ","
+                + TABLE_REZIJE + "." + ADR_PRIM + ","
+                + TABLE_REZIJE + "." + IBAN_PRIM + ","
+                + TABLE_REZIJE + "." + MODEL + ","
+                + TABLE_REZIJE + "." + PNBPR + ","
+                + TABLE_REZIJE + "." + SIFRA + ","
+                + TABLE_REZIJE + "." + OPIS_PL + ","
+                + TABLE_REZIJE + "." + DATE_CREATE + ","
+                + TABLE_REZIJE + "." + DATE_EDIT + ","
+                + TABLE_CATEGORIES + "." + NAME
                 + " FROM " + TABLE_REZIJE
-                + " WHERE " + ID +  "= " + id;
+                + " INNER JOIN " + TABLE_CATEGORIES + " ON " + TABLE_CATEGORIES + "." + ID + "=" + TABLE_REZIJE + "." + ID_CATEGORY
+                + " WHERE " + TABLE_REZIJE + "." + ID +  "= " + id;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -259,12 +261,12 @@ public class DBHandler extends SQLiteOpenHelper {
             rezija.setSifraNamjene(cursor.getString(11));
             rezija.setOpisPlacanja(cursor.getString(12));
             try{
-                rezija.setDateCreated(dateFormat.parse(cursor.getString(12)));
+                rezija.setDateCreated(dateFormat.parse(cursor.getString(13)));
             } catch (Exception ex) {}
             try{
-                rezija.setDateEdited(dateFormat.parse(cursor.getString(13)));
+                rezija.setDateEdited(dateFormat.parse(cursor.getString(14)));
             } catch (Exception ex) {}
-
+            rezija.setCategoryName(cursor.getString(15));
         }
 
         return rezija;
