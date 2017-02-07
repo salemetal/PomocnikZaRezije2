@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.ContextMenu;
@@ -100,6 +101,8 @@ public class TabHome extends Fragment {
 
                 final EditText editText = new EditText(getContext());
                 editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                int maxLength = 3;
+                editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
                 builder.setView(editText);
 
                 builder.setPositiveButton(R.string.spremi, new DialogInterface.OnClickListener() {

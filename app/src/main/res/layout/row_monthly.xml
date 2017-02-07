@@ -12,19 +12,19 @@
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/padding_left_rows">
+            android:paddingLeft="10dp">
         <TextView
             android:id="@+id/tvMonthlyCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="1dp"
-            android:textSize="@dimen/text_size_cat_mon"
+            android:textSize="15dp"
             />
          <TextView
              android:id="@+id/tvMonthlyDatePayed"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:textSize="@dimen/text_size_placeno_mon"
+             android:textSize="11dp"
              />
         </LinearLayout>
         <TextView
@@ -33,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_weight=".3"
             android:gravity="right"
-            android:paddingRight="@dimen/padding_right_rows"
-            android:textSize="@dimen/text_size_amount_mon"
+            android:paddingRight="10dp"
+            android:textSize="15dp"
             android:layout_gravity="center_vertical"
         />
     </LinearLayout>

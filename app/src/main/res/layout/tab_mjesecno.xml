@@ -41,25 +41,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/padding_top_total"
-            android:paddingBottom="@dimen/padding_bottom_total">
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="0.7"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_cat_mon"
+                android:textSize="15dp"
                 android:background="@color/mainGray"
-                android:paddingLeft="@dimen/padding_left_rows"
+                android:paddingLeft="10dp"
                 android:text="@string/ukupno"/>
             <TextView
                 android:id="@+id/tvMonthlyTotal"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_amount_mon"
+                android:textSize="15dp"
                 android:background="@color/mainGray"
                 android:gravity="right"
-                android:paddingRight="@dimen/padding_right_rows"
+                android:paddingRight="10dp"
                 />
         </LinearLayout>
     </LinearLayout>

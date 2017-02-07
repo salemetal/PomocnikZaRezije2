@@ -43,7 +43,7 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/rezijeNewGroupTvPadding"
         android:text="@string/obavezni_podaci"
         android:textSize="15dp"
         android:background="@color/colorPrimaryDark"
@@ -58,7 +58,7 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
             android:layout_height="wrap_content"
             android:layout_weight=".60"
             android:text="@string/iznos"
-            android:textSize="15dp"
+            android:textSize="@dimen/rezijeNewTvName"
             android:padding="5dp"/>
         <EditText
             android:layout_width="0dp"
@@ -69,12 +69,14 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
             android:maxLength="7"
             android:background="@android:color/transparent"
             android:text="0.00"
+            android:textSize="@dimen/rezijeNewTvValue"
             />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".10"
-            android:text="@string/hrk"/>
+            android:text="@string/hrk"
+            android:textSize="@dimen/rezijeNewTvName"/>
 
     </LinearLayout>
     <LinearLayout
@@ -87,13 +89,14 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
             android:layout_height="wrap_content"
             android:layout_weight=".60"
             android:text="@string/datum_placanja"
-            android:textSize="15dp"
+            android:textSize="@dimen/rezijeNewTvName"
             android:padding="5dp"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".40"
             android:inputType="date"
+            android:textSize="@dimen/rezijeNewTvValue"
             android:id="@+id/editTextDatum"
             android:maxLength="11"
             android:background="@android:color/transparent"/>
@@ -108,20 +111,21 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
             android:layout_height="wrap_content"
             android:layout_weight=".60"
             android:text="@string/info_o_uplati"
-            android:textSize="15dp"
+            android:textSize="@dimen/rezijeNewTvName"
             android:padding="5dp"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".40"
             android:inputType="text"
+            android:textSize="@dimen/rezijeNewTvValue"
             android:id="@+id/editTextInfoPlacanje"
             android:background="@android:color/transparent"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/rezijeNewGroupTvPadding"
         android:text="@string/dodatni_podaci"
         android:background="@color/colorPrimaryDark"
         android:textColor="@android:color/background_light"
@@ -142,13 +146,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/platitelj"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:textSize="@dimen/rezijeNewTvValue"
+                    android:padding="@dimen/rezijeNewTvPadding"
                     android:id="@+id/editTextPLatitelj"
                     android:maxLength="100"/>
             </LinearLayout>
@@ -161,13 +167,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/adresa_platitelja"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:textSize="@dimen/rezijeNewTvValue"
+                    android:padding="@dimen/rezijeNewTvPadding"
                     android:id="@+id/editTextAdrPLatitelj"
                     android:maxLength="100"/>
             </LinearLayout>
@@ -180,13 +188,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/primatelj"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextPrimatelj"
                     android:maxLength="100"/>
             </LinearLayout>
@@ -194,18 +204,23 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/adresa_primatelja"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:id="@+id/textView7" />
+
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextAdrPrimatelj"
                     android:maxLength="100"/>
             </LinearLayout>
@@ -218,13 +233,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/iban_primatelja"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:textSize="@dimen/rezijeNewTvValue"
+                    android:padding="@dimen/rezijeNewTvPadding"
                     android:id="@+id/editTextIbanPrimatelj"
                     android:maxLength="100"/>
             </LinearLayout>
@@ -232,18 +249,23 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/model"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:id="@+id/textView8" />
+
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextModel"
                     android:maxLength="10"/>
             </LinearLayout>
@@ -256,13 +278,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/pnbp"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextPnbp"
                     android:maxLength="30"/>
             </LinearLayout>
@@ -270,18 +294,21 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/sifra_namjene"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding" />
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextSifraNamjene"
                     android:maxLength="20"/>
             </LinearLayout>
@@ -295,13 +322,15 @@ tools:context="com.sale.pomocnikzarezije.MainActivity">
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="@string/opis_placanja"
-                    android:textSize="15dp"
-                    android:padding="5dp"/>
+                    android:textSize="@dimen/rezijeNewTvName"
+                    android:padding="@dimen/rezijeNewTvPadding"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:inputType="text"
+                    android:padding="@dimen/rezijeNewTvPadding"
+                    android:textSize="@dimen/rezijeNewTvValue"
                     android:id="@+id/editTextOpisPl"
                     android:maxLength="100"/>
             </LinearLayout>

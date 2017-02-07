@@ -127,7 +127,7 @@ public class TabMjesecno extends Fragment{
                     View dialoglayout = inflater.inflate(R.layout.rezija_dialog, null);
 
                     TextView textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogIznos);
-                    textView.setText(Float.toString(rezija.getAmount()));
+                    textView.setText(Float.toString(rezija.getAmount()) + " HRK");
 
                     textView = (TextView)dialoglayout.findViewById(R.id.tvRezijaDialogDatum);
                     textView.setText(Utils.dateFormatter.format(rezija.getDatePayed()));

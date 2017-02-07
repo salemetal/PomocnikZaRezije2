@@ -17,8 +17,8 @@
                 android:id="@+id/tvYearlyCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_cat_year"
-                android:paddingLeft="@dimen/padding_left_rows"
+                android:textSize="17dp"
+                android:paddingLeft="10dp"
                 />
         </LinearLayout>
         <TextView
@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_weight=".3"
             android:gravity="right"
-            android:textSize="@dimen/text_size_amount_year"
-            android:paddingRight="@dimen/padding_right_rows"
+            android:textSize="17dp"
+            android:paddingRight="10dp"
             android:layout_gravity="center_vertical"
             />
     </LinearLayout>
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/llRowYearlyMonths"
-        android:paddingLeft="@dimen/padding_left_rows"
-        android:paddingBottom="@dimen/padding_bottom_months_yearly">
+        android:paddingLeft="10dp"
+        android:paddingBottom="2dp">
     </LinearLayout>
 
 </LinearLayout>
