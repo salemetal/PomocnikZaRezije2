@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +42,7 @@ public class AdapterMonthly extends ArrayAdapter<Rezije> {
         tv.setText(String.format("%.2f", data.get(position).getAmount()));
 
         tv = (TextView) view.findViewById(R.id.tvMonthlyDatePayed);
-        tv.setText(context.getString(R.string.placeno) + new SimpleDateFormat("dd.MM.yyyy").format(data.get(position).getDatePayed()));
+        tv.setText(context.getString(R.string.placeno) + Utils.dateFormatter.format(data.get(position).getDatePayed()));
         tv.setTextColor(context.getResources().getColor(R.color.mainGreen));
 
         return view;

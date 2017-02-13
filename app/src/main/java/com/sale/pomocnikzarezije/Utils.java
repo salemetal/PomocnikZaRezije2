@@ -1,7 +1,5 @@
 package com.sale.pomocnikzarezije;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
@@ -12,9 +10,7 @@ import java.util.Locale;
  */
 public class Utils{
 
-    public static final String PREF_FIRST_TIME  = "my_first_time";
-    public static final String PREFS_FILE_NAME  = "prefs";
-    public static final String PREF_BCKP  = "is_bckp_needed";
+    public static int categoryMaxlength = 25;
 
     public static boolean isEmpty(EditText editText) {
         return editText.getText().toString().trim().length() == 0;
@@ -57,19 +53,5 @@ public class Utils{
 
         return monthString;
 
-    }
-
-    public void writeToSharedPrefsBool(Context context, String prefName, boolean setValue)
-    {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(prefName, setValue);
-        editor.commit();
-    }
-
-    public boolean readFromSharedPrefsBool(Context context, String prefName, boolean defaultValue)
-    {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(prefName, defaultValue);
     }
 }

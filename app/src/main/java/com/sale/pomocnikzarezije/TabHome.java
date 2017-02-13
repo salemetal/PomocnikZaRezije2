@@ -55,7 +55,6 @@ public class TabHome extends Fragment {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             layout.addView(textView);
 
-            //Toast.makeText(this.getContext(), R.string.welcome_message, Toast.LENGTH_LONG).show();
         }
 
         else
@@ -101,7 +100,7 @@ public class TabHome extends Fragment {
 
                 final EditText editText = new EditText(getContext());
                 editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                int maxLength = 3;
+                int maxLength = Utils.categoryMaxlength;
                 editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
                 builder.setView(editText);
 

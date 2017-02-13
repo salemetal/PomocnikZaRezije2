@@ -19,6 +19,7 @@ import com.sale.pomocnikzarezije.db.DBHandler;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Sale on 16.10.2016..
@@ -65,6 +66,7 @@ public class AddEditRezija extends AppCompatActivity implements View.OnClickList
                 editDate.setText(Utils.dateFormatter.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        pickDateDialog.getDatePicker().setMaxDate(new Date().getTime());
 
         id = (getIntent().getIntExtra("rezija_id", 0));
         //ako dolazi edit id rezije
