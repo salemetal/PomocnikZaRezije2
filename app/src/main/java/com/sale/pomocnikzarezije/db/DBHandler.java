@@ -335,7 +335,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT "
                 + "IFNULL(SUM(" + TABLE_REZIJE + "." + AMOUNT + "),0) AS TOTAL,"
-                + TABLE_CATEGORIES + "." + NAME
+                + TABLE_CATEGORIES + "." + NAME + ","
+                + TABLE_CATEGORIES +"." + ID
                 + " FROM " + TABLE_CATEGORIES
                 + " LEFT JOIN " + TABLE_REZIJE + " ON " + TABLE_REZIJE + "." + ID_CATEGORY + " = " + TABLE_CATEGORIES + "." + ID
                 + " WHERE strftime('%Y'," + TABLE_REZIJE + "." + DATE_PAYED + ") " + " = " + "'" + year +"' OR " + TABLE_REZIJE + "." + DATE_PAYED + " IS NULL"
@@ -350,6 +351,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 RezijeYear rezije = new RezijeYear();
                 rezije.setAmount(cursor.getFloat(0));
                 rezije.setCategoryName(cursor.getString(1));
+                rezije.setCategoryId(cursor.getInt(2));
                 rezijeList.add(rezije);
             } while (cursor.moveToNext());
         }
@@ -381,6 +383,39 @@ public class DBHandler extends SQLiteOpenHelper {
             }
         }
         return rezijeList;
+    }
+
+    public List<Float> getMonthlyAmountsByYear(int year, int categoryId)
+    {
+        List<Float> amounts = new ArrayList<>();
+
+        String selectQuery =
+                     "SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-01" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-02" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-03" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-04" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-05" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-06" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-07" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-08" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-09" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-10" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-11" + "'" + " AND " + ID_CATEGORY + " = " + categoryId +
+                     " UNION ALL SELECT IFNULL(SUM(" + AMOUNT +"),0) FROM  " + TABLE_REZIJE +" WHERE strftime('%Y-%m', " + DATE_PAYED + ")  = " + "'" + year + "-12" + "'" + " AND " + ID_CATEGORY + " = " + categoryId;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                amounts.add(cursor.getFloat(0));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+
+        return amounts;
+
     }
 
     public void deleteRezija(Rezije rezije) {
