@@ -15,4 +15,9 @@
     <dimen name="rezijeDialogTextValue">15dp</dimen>
     <dimen name="rezijeDialogTvPaddingLeft">5dp</dimen>
 
+    --yearly dialog
+    <dimen name="tvYearlyDialgMonthName">15dp</dimen>
+    <dimen name="yearlyDialogTvPadding">5dp</dimen>
+    <dimen name="tvYearlyDialgPaddingLeftRight">10dp</dimen>
+
 </resources>

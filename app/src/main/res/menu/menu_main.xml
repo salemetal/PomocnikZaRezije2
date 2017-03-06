@@ -7,11 +7,11 @@
         android:icon="@drawable/refresh"
         android:title="@string/refresh"
         app:showAsAction="ifRoom" />
-    <item
+    <!--item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never" /-->
     <item
         android:id="@+id/menu_backup"
         android:orderInCategory="100"
@@ -27,8 +27,8 @@
         android:orderInCategory="100"
         android:title="@string/reset_baze"
         app:showAsAction="never" />
-    <item android:id="@+id/db"
+    <!--item android:id="@+id/db"
         android:orderInCategory="100"
         android:title="DB"
-        app:showAsAction="never" />
+        app:showAsAction="never" /-->
 </menu>

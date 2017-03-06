@@ -20,7 +20,7 @@
             android:text="@string/ucitaj"/>
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -29,27 +29,29 @@
             android:id="@+id/listViewGodisnje"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp">
         </ListView>
+
         <LinearLayout
             android:id="@+id/llYearlyTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp">
+            android:layout_alignParentBottom="true">
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.4"
                 android:layout_height="wrap_content"
                 android:background="@color/mainGray"
                 android:text="@string/ukupno"
-                android:paddingLeft="1dp"
+                android:paddingLeft="10dp"
                 android:textSize="17dp"/>
+
             <TextView
                 android:id="@+id/tvYearlyTotal"
                 android:layout_width="0dp"
-                android:layout_weight="0.3"
+                android:layout_weight="0.6"
                 android:layout_height="wrap_content"
                 android:background="@color/mainGray"
                 android:gravity="right"
@@ -57,5 +59,7 @@
                 android:textSize="17dp"
                 />
         </LinearLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

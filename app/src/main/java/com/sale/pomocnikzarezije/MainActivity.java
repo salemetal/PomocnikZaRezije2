@@ -21,7 +21,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
-import com.sale.pomocnikzarezije.db.AndroidDatabaseManager;
 import com.sale.pomocnikzarezije.db.DBHandler;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -79,10 +78,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.db:
+            /*case R.id.db:
                 Intent intent = new Intent(this, AndroidDatabaseManager.class);
                 this.startActivity(intent);
-                return true;
+                return true;*/
             case R.id.menu_backup:
                 confirmBackupGoogleDrive(googleApiClient, this.getApplicationContext());
                 return true;
@@ -276,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (exit) {
             finish(); // finish activity
         } else {
-            Toast.makeText(this, "Pritisnite Back tipku još jednom za Izlaz.",
+            Toast.makeText(this, R.string.pritisnite_back_izlaz,
                     Toast.LENGTH_SHORT).show();
             exit = true;
             new Handler().postDelayed(new Runnable() {

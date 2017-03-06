@@ -54,15 +54,16 @@
     <string name="conn_failed">Connected failed</string>
     <string name="backup_done">Backup obavljen na Google Drive</string>
     <string name="backup_error">Greška pri backupu!</string>
-    <string name="want_bckp_google_drive">Želite li napraviti restore s Google Drive-a? Pregazit će se sadašnje stanje baze podataka podacima sa backup-a! Morate biti spojeni na internet!</string>
+    <string name="want_bckp_google_drive">Želite li napraviti restore s Google Drive-a? Pregazit će se sadašnje stanje baze podataka podacima sa backup-a! Morate biti povezani na internet!</string>
     <string name="restore_error">Greška pri restore-u s Google Drive-a</string>
     <string name="restoring">Restoring...</string>
     <string name="restored">Restored!</string>
     <string name="backup_na_google_drive">Backup Google Drive</string>
     <string name="restore_google_drive">Restore Google Drive</string>
     <string name="reset_baze">Reset baze</string>
-    <string name="want_backup_google_drive">"Želite li napraviti backup na Google Drive? Pregazit će se zadnji backup! Morate biti spojeni na internet!"</string>
+    <string name="want_backup_google_drive">"Želite li napraviti backup na Google Drive? Pregazit će se zadnji backup! Morate biti povezani na internet!"</string>
     <string name="db_reset">Baza resetirana!</string>
     <string name="info_o_uplati">Info o plaćanju</string>
     <string name="refresh">refresh</string>
+    <string name="pritisnite_back_izlaz">Pritisnite još jednom za Izlaz.</string>
 </resources>
